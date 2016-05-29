@@ -8,14 +8,16 @@ function setKey(tried) {
 	localStorage.setItem('id', num);
 }
 function forceKey() {
-	var urName = prompt("Hey Welcome on this Website let's get started but first You must confirm your nickname");
+	var urName = prompt("Hey confirm your nickname");
 	while (!urName || urName.length >= 20)
 		urName = prompt("Hey just choose a nickname");
+	if (!urName)
+		urName = 'Work';
 	localStorage.setItem('name', urName);
-	var myHeading = document.getElementById('button');
-	myHeading.innerHTML = 'Development is Cool ' + urName + ',<br/> so Click around to Experience it.';
+	var myHeading = document.getElementById('tochange1');
+	myHeading.innerHTML = 'Development is Cool';
 	var center = document.querySelector('h2');
-	center.innerHTML = 'Click here ' + urName;
+	center.innerHTML = 'Click Here ' + urName;
 	if (localStorage.getItem('name') != 'ok')
 	{
 		for (var i = 1337; i > 0; i -= 1)

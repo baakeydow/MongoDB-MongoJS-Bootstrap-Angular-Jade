@@ -1,21 +1,27 @@
 function loadScript(url, callback) {
-	// Adding the script tag to the head as suggested before
 	var head = document.getElementsByTagName('head')[0];
 	var script = document.createElement('script');
 	script.type = 'text/javascript';
 	script.src = url;
-	// Then bind the event to the callback function.
 	// There are several events for cross browser compatibility.
 	script.onreadystatechange = callback;
 	script.onload = callback;
 	// Fire the loading
 	head.appendChild(script);
 }
-function enigmeOnClick() {
+function enigmeOnClick(num) {
 	document.addEventListener('DOMContentLoaded', function() {
-	var link = document.getElementById('button');
+	var link = document.getElementById('tochange1');
 	link.addEventListener('click', function() {
-			loadScript('/scripts/forceUserInput.js', setKey());
+			loadScript('/scripts/forceUserInput.js', setKey(num));
+		});
+	});
+}
+function toggleSidebar() {
+	document.addEventListener('DOMContentLoaded', function() {
+	var link = document.getElementById('sidebar-wrapper');
+	link.addEventListener('click', function() {
+			$("#wrapper").toggleClass("toggled");
 		});
 	});
 }
@@ -26,10 +32,10 @@ function bounceUp() {
 	frame.addEventListener('click', function() {
 		document.getElementById('hidden').style.border = '5px solid white';
 		document.getElementById('list').style.background = 'transparent'
-		document.getElementById('hidden').style.background = '#CCCCFF';
+		document.getElementById('hidden').style.background = '#000000';
 		$(frame).animateCssOnce('fadeInUp');
 		var frame = document.getElementById('hidden');
-		$(frame).animateCssOnce('rubberBand');
+		$(frame).animateCss('rubberBand');
 		});
 	});
 }
@@ -38,6 +44,14 @@ function textAnim(classe, effect) {
 	var txt = document.querySelector(classe);
 	txt.addEventListener('click', function() {
 		$(txt).animateCss(effect);
+		});
+	});
+}
+function textChangeOnClick(id, text) {
+	document.addEventListener('DOMContentLoaded', function() {
+	var txt = document.getElementById(id);
+	txt.addEventListener('click', function() {
+		txt.innerHTML = text;
 		});
 	});
 }
@@ -54,3 +68,26 @@ function imageSwitcher() {
 		});
 	});
 }
+function firePage(locationId, page, id) {
+	document.addEventListener('DOMContentLoaded', function() {
+	var elem = document.getElementById(id);
+	elem.addEventListener('click', function() {
+		loadPage_(page, locationId);
+		});
+	});
+}
+function loadPage_(page, id){
+	var test_page   = page;
+	var content_div = document.getElementById(id);
+	var xmlHttp = new XMLHttpRequest();
+	xmlHttp.onreadystatechange = function() {
+		if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+			content_div.innerHTML = xmlHttp.responseText;
+	}
+	xmlHttp.open("GET", test_page, true); // true for asynchronous
+	xmlHttp.send(null);
+}
+$("#menu-toggle").click(function(e) {
+	e.preventDefault();
+	$("#wrapper").toggleClass("toggled");
+});
