@@ -1,0 +1,7 @@
+block content
+  h3.
+    Users
+  ul
+    each usersdata, i in usersdatalist
+      li#usersdata_list_item
+        a(href='#') #{usersdata.name} at #{usersdata.email} #{usersdata.city}

@@ -1,0 +1,19 @@
+block content
+  h3= title
+  form#form_add_user(name="adduser", method="post", action="/addnewuser")
+    span Name
+    span &nbsp;
+    input#input_name(type="text", placeholder="user", name="user")
+    br
+    br
+    span email
+    span &nbsp;
+    input#input_email(type="text", placeholder="email", name="email")
+    br
+    br
+    span City
+    span &nbsp;
+    input#input_city(type="text", placeholder="city", name="city")
+    br
+    br
+    button#submit_user(type="submit") submit
