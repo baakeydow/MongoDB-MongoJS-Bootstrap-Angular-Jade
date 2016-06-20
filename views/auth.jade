@@ -1,0 +1,23 @@
+h3= title
+link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css")
+link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css")
+body(ng-app="myApp")
+	div(class="container", ng-controller="AuthCtrl")
+		h1 Provide a name and a passwd please
+		table(class="table")
+			thead
+				tr
+					th Name
+					th Password
+					th &nbsp;
+			tbody
+				tr
+					td
+						input(class="form-control" ng-model="contact.name")
+					td
+						input(class="form-control" ng-model="contact.passwd")
+					td
+						button(class="btn btn-primary" ng-click="justme()") Add me !
+
+script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular.min.js")
+script(src="html/controllers/auth-ctrl.js")

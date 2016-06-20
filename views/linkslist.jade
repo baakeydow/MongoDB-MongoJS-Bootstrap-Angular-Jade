@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  h3.
+    Links
+  ul
+    each link, i in linkslist
+      DL#usersdata_list_item
+         DT #[a(href="#{link.linkref}", target="_") #{link.linkname}]
+         DD - #{link.linkdesc}

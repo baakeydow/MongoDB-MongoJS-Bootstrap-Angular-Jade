@@ -1,0 +1,26 @@
+block content
+   div(class="container")
+     h3= title
+     table(class="table")
+       form#form_add_user(name="addlink", method="post", action="/addnewlink")
+         th Name
+         th &nbsp;
+         td
+            input#input_name(type="text", placeholder="Name", name="linkname")
+         br
+         br
+         th Link
+         th &nbsp;
+         td
+            input#input_name(type="text", placeholder="Link", name="linkref")
+         br
+         br
+         th Description
+         th &nbsp;
+         td
+            input#input_email(type="text", placeholder="Description", name="linkdesc")
+         br
+         br
+         td
+            button#submit_user(type="submit") submit
+script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.12/angular.min.js")

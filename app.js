@@ -4,10 +4,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var mongojs = require('mongojs');
 var mongo = require('mongodb');
-
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -24,15 +22,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.disable('x-powered-by');
 
 app.use('/', routes);
 app.use('/users', users);
 
-
 //
 // Links
 //
-
 
 var linksdb = mongojs('linkslist', ['techLinks', 'prgLinks']);
 // Get All
@@ -166,15 +163,12 @@ app.put('/contactlist/:id', function (req, res) {
   );
 });
 
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
-
-// error handlers
 
 // development error handler
 // will print stacktrace

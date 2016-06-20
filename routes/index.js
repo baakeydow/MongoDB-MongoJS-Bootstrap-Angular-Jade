@@ -2,12 +2,12 @@ var express = require('express');
 var router = express.Router();
 var mongodb = require('mongodb');
 router.get('/', function(req, res, next) {
-  res.render('index', { title: '21Times2.com' });
+  res.render('index', { title: 'demo.com' });
 });
 
-router.get('/thelist', function(req, res){
+router.get('/links', function(req, res){
   var MongoClient = mongodb.MongoClient;
-  var url = 'mongodb://localhost:27017/21times2';
+  var url = 'mongodb://localhost:27017/demo';
   MongoClient.connect(url, function (err, db) {
   if (err) {
     console.log('Unable to connect to the Server', err);
@@ -18,9 +18,9 @@ router.get('/thelist', function(req, res){
       if (err) {
         res.send(err);
       } else if (result.length) {
-        res.render('usersdatalist',{
+        res.render('linkslist',{
           // Pass the returned database documents to Jade
-          "usersdatalist" : result
+          "linkslist" : result
         });
       } else {
         res.send('No documents found');
@@ -30,25 +30,24 @@ router.get('/thelist', function(req, res){
   }
   });
 });
-router.get('/newuser', function(req, res){
-    res.render('newuser', {title: 'Add User' });
+router.get('/newlink', function(req, res){
+    res.render('newlink', {title: 'Add A Link' });
 });
-router.post('/addnewuser', function(req, res){
+router.post('/addnewlink', function(req, res){
     var MongoClient = mongodb.MongoClient;
-    var url = 'mongodb://localhost:27017/21times2';
+    var url = 'mongodb://localhost:27017/demo';
     MongoClient.connect(url, function(err, db){
       if (err) {
         console.log('Unable to connect to the Server:', err);
       } else {
         console.log('Connected to Server');
         var collection = db.collection('usersdata');
-        var user1 = {user1: req.body.user, email: req.body.email,
-          city: req.body.city};
-        collection.insert([user1], function (err, result){
+        var linked = {linkname: req.body.linkname, linkref: req.body.linkref, linkdesc: req.body.linkdesc};
+        collection.insert([linked], function (err, result){
           if (err) {
             console.log(err);
           } else {
-            res.redirect("thelist");
+            res.redirect("index");
           }
           db.close();
         });
@@ -57,18 +56,22 @@ router.post('/addnewuser', function(req, res){
 });
 
 router.get('/bookmarks', function(req, res){
-    res.render('bookmarks', {title: 'Welcome' });
+    res.render('html/Bookmarks.html', {title: 'Welcome' });
 });
 router.get('/contact', function(req, res){
-    res.render('contact', {title: 'Contact' });
+    res.render('html/Contact.html', {title: 'Contact' });
 });
-router.get('/links', function(req, res){
-    res.render('links', {title: 'Add Links' });
+router.get('/userslinks', function(req, res){
+    res.render('html/Userslinks.html', {title: 'Add Links' });
 });
 router.get('/pdfs_Fleet', function(req, res){
-    res.render('pdfs_Fleet', {title: 'Add Ressource' });
+    res.render('html/Pdfs_Fleet.html', {title: 'Add Ressource' });
 });
-
-
+router.get('/auth', function(req, res){
+    res.render('auth', {title: 'hey to view this page you need to Authenticate' });
+});
+router.get('/pdfs*', function(req, res){
+    res.render('/', {title: 'Welcome' });
+});
 
 module.exports = router;
